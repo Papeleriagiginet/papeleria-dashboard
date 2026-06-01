@@ -230,9 +230,17 @@ Guardar
 
 <script>
 
-let totalVentas=0;
-let totalServicios=0;
-let movimientos=0;
+let totalVentas = localStorage.getItem("totalVentas")
+? parseInt(localStorage.getItem("totalVentas"))
+: 0;
+
+let totalServicios = localStorage.getItem("totalServicios")
+? parseInt(localStorage.getItem("totalServicios"))
+: 0;
+
+let movimientos = localStorage.getItem("movimientos")
+? parseInt(localStorage.getItem("movimientos"))
+: 0;
 
 const ctx=document.getElementById('grafica');
 
