@@ -229,6 +229,8 @@ Guardar
 </div>
 
 </div>
+
+<script>
 function exportarCSV() {
 
 let csv = "Servicio,Cantidad,Total\n";
@@ -263,8 +265,6 @@ link.download = "ventas_papeleria.csv";
 link.click();
 
 }
-<script>
-
 let totalVentas = localStorage.getItem("totalVentas")
 ? parseInt(localStorage.getItem("totalVentas"))
 : 0;
