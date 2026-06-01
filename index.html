@@ -346,7 +346,9 @@ Ganancia neta:
 <button onclick="cerrarCaja()">
 💾 Cerrar Caja
 </button>
-
+<button onclick="imprimirCierre()">
+🖨️ Imprimir Cierre
+</button>
 </div>
 <canvas id="grafica"></canvas>
 
@@ -647,7 +649,71 @@ localStorage.setItem(
 "ultimoCierre",
 resumen
 );
+function imprimirCierre(){
 
+const ventas =
+document.getElementById("ventasCaja").innerText;
+
+const gastos =
+document.getElementById("gastosCaja").innerText;
+
+const ganancia =
+document.getElementById("gananciaCaja").innerText;
+
+const fecha =
+new Date().toLocaleString();
+
+const ventana = window.open("", "_blank");
+
+ventana.document.write(`
+<html>
+<head>
+<title>Cierre de Caja</title>
+
+<style>
+body{
+font-family:Arial;
+padding:30px;
+}
+
+h1{
+text-align:center;
+}
+
+p{
+font-size:18px;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>PAPELERÍA GIGINET</h1>
+
+<h2>Cierre de Caja</h2>
+
+<p><strong>Fecha:</strong> ${fecha}</p>
+
+<p><strong>Ventas:</strong> ${ventas}</p>
+
+<p><strong>Gastos:</strong> ${gastos}</p>
+
+<p><strong>Ganancia:</strong> ${ganancia}</p>
+
+<br><br>
+
+<p>Firma: ________________________</p>
+
+</body>
+</html>
+`);
+
+ventana.document.close();
+
+ventana.print();
+
+}
 }
 </script>
 
