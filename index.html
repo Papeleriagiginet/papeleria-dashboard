@@ -349,6 +349,9 @@ Ganancia neta:
 <button onclick="imprimirCierre()">
 🖨️ Imprimir Cierre
 </button>
+<button onclick="nuevaJornada()">
+🔄 Nueva Jornada
+</button>
 </div>
 <canvas id="grafica"></canvas>
 
@@ -743,7 +746,37 @@ ventana.document.close();
 ventana.print();
 
 }
+function nuevaJornada(){
 
+if(!confirm("¿Desea cerrar el día y comenzar una nueva jornada?")){
+return;
+}
+
+totalVentas = 0;
+totalServicios = 0;
+movimientos = 0;
+
+document.getElementById("ventas").innerHTML = "$0";
+document.getElementById("ganancia").innerHTML = "$0";
+document.getElementById("servicios").innerHTML = "0";
+document.getElementById("movimientos").innerHTML = "0";
+
+document.getElementById("ventasCaja").innerHTML = "$0";
+document.getElementById("gananciaCaja").innerHTML = "$0";
+
+document.getElementById("tabla").innerHTML = "";
+
+localStorage.setItem("totalVentas", 0);
+localStorage.setItem("totalServicios", 0);
+localStorage.setItem("movimientos", 0);
+localStorage.setItem("tablaVentas", "");
+
+chart.data.datasets[0].data = [0];
+chart.update();
+
+alert("Nueva jornada iniciada correctamente");
+
+}
 
 
 
