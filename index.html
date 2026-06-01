@@ -186,7 +186,30 @@ Ingresar
 </div>
 </div>
 <div class="sidebar">
+<div style="text-align:center; margin-bottom:15px;">
 
+<img
+id="logoEmpresa"
+src=""
+style="
+width:100px;
+height:100px;
+object-fit:contain;
+background:white;
+border-radius:10px;
+padding:5px;
+display:block;
+margin:auto;
+">
+
+<input
+type="file"
+id="subirLogo"
+accept="image/*"
+style="margin-top:10px;width:100%;"
+>
+
+</div>
 <h2>🖨️ Papelería</h2>
 
 <ul>
@@ -470,7 +493,43 @@ alert("Usuario o contraseña incorrectos");
 
 }
 
+function login(){
 
+...
+}
+
+const logoInput = document.getElementById("subirLogo");
+
+if(localStorage.getItem("logoEmpresa")){
+document.getElementById("logoEmpresa").src =
+localStorage.getItem("logoEmpresa");
+}
+
+logoInput.addEventListener("change", function(){
+
+const archivo = this.files[0];
+
+if(!archivo) return;
+
+const lector = new FileReader();
+
+lector.onload = function(e){
+
+document.getElementById("logoEmpresa").src =
+e.target.result;
+
+localStorage.setItem(
+"logoEmpresa",
+e.target.result
+);
+
+};
+
+lector.readAsDataURL(archivo);
+
+});
+
+</script>
 </script>
 
 </body>
