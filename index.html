@@ -488,7 +488,14 @@ totalServicios;
 
 document.getElementById('movimientos').innerHTML =
 movimientos;
+document.getElementById('ventasCaja').innerHTML =
+"$"+totalVentas.toLocaleString();
 
+document.getElementById('gananciaCaja').innerHTML =
+"$"+totalVentas.toLocaleString();
+
+document.getElementById('gastosCaja').innerHTML =
+"$0";
 if(localStorage.getItem("tablaVentas")){
 document.getElementById("tabla").innerHTML =
 localStorage.getItem("tablaVentas");
@@ -596,7 +603,30 @@ this.value
 );
 
 });
+function cerrarCaja(){
 
+const fecha = new Date().toLocaleString();
+
+const resumen = `
+CIERRE DE CAJA
+
+Fecha: ${fecha}
+
+Ventas:
+$${totalVentas.toLocaleString()}
+
+Ganancia:
+$${totalVentas.toLocaleString()}
+`;
+
+alert(resumen);
+
+localStorage.setItem(
+"ultimoCierre",
+resumen
+);
+
+}
 </script>
 
 </body>
