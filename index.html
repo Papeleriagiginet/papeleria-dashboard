@@ -644,12 +644,17 @@ $${totalVentas.toLocaleString()}
 `;
 
 alert(resumen);
-
 localStorage.setItem(
-"ultimoCierre",
-resumen
-);
-function imprimirCierre(){
+
+     "ultimoCierre",
+
+     resumen
+
+ );
+
+ }
+
+  function imprimirCierre(){
 
 const ventas =
 document.getElementById("ventasCaja").innerText;
