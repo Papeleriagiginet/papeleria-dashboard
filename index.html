@@ -653,7 +653,96 @@ localStorage.setItem(
  );
 
  }
+function imprimirCierre(){
 
+let detalle = "";
+
+document.querySelectorAll("#tabla tr").forEach(fila => {
+
+const columnas = fila.querySelectorAll("td");
+
+if(columnas.length > 0){
+
+detalle += `
+<tr>
+<td>${columnas[0].innerText}</td>
+<td>${columnas[1].innerText}</td>
+<td>${columnas[2].innerText}</td>
+<td>${columnas[3].innerText}</td>
+<td>${columnas[4].innerText}</td>
+</tr>
+`;
+
+}
+
+});
+
+const ventana = window.open("", "_blank");
+
+ventana.document.write(`
+<html>
+<head>
+<title>Cierre de Caja</title>
+
+<style>
+body{
+font-family:Arial;
+padding:20px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th,td{
+border:1px solid black;
+padding:5px;
+text-align:center;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>PAPELERÍA GIGINET</h1>
+
+<h2>Cierre de Caja</h2>
+
+<p><strong>Fecha:</strong> ${new Date().toLocaleString()}</p>
+
+<table>
+<tr>
+<th>Fecha</th>
+<th>Hora</th>
+<th>Servicio</th>
+<th>Cantidad</th>
+<th>Total</th>
+</tr>
+
+${detalle}
+
+</table>
+
+<br>
+
+<p><strong>Ventas del día:</strong> ${document.getElementById("ventasCaja").innerText}</p>
+
+<p><strong>Ganancia:</strong> ${document.getElementById("gananciaCaja").innerText}</p>
+
+<br><br>
+
+<p>Firma: __________________________</p>
+
+</body>
+</html>
+`);
+
+ventana.document.close();
+ventana.print();
+
+}
 
 
 
