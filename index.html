@@ -413,7 +413,29 @@ data:[0]
 }]
 }
 });
+document.getElementById('ventas').innerHTML =
+"$"+totalVentas.toLocaleString();
 
+document.getElementById('ganancia').innerHTML =
+"$"+totalVentas.toLocaleString();
+
+document.getElementById('servicios').innerHTML =
+totalServicios;
+
+document.getElementById('movimientos').innerHTML =
+movimientos;
+
+document.getElementById('ventasCaja').innerHTML =
+"$"+totalVentas.toLocaleString();
+
+document.getElementById('gananciaCaja').innerHTML =
+"$"+totalVentas.toLocaleString();
+
+document.getElementById('gastosCaja').innerHTML =
+"$0";
+
+chart.data.datasets[0].data=[totalVentas];
+chart.update();
 function guardarVenta(){
 
 const servicio=document.getElementById('servicio');
