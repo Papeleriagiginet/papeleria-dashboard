@@ -3,48 +3,296 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Papelería Dashboard</title>
+<title>Dashboard Papelería</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
-body{
-font-family:Arial,sans-serif;
-background:#f5f7fa;
-text-align:center;
-padding:50px;
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Segoe UI, sans-serif;
 }
 
-h1{
-color:#2563eb;
+body{
+display:flex;
+background:#f5f7fb;
+}
+
+.sidebar{
+width:250px;
+height:100vh;
+background:#111827;
+color:white;
+padding:20px;
+position:fixed;
+}
+
+.sidebar h2{
+margin-bottom:30px;
+text-align:center;
+}
+
+.sidebar ul{
+list-style:none;
+}
+
+.sidebar li{
+padding:15px;
+margin-bottom:10px;
+background:#1f2937;
+border-radius:10px;
+cursor:pointer;
+}
+
+.sidebar li:hover{
+background:#374151;
+}
+
+.main{
+margin-left:250px;
+width:100%;
+padding:20px;
+}
+
+.cards{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:20px;
+margin-bottom:20px;
 }
 
 .card{
 background:white;
 padding:20px;
-max-width:500px;
-margin:auto;
 border-radius:15px;
-box-shadow:0 0 10px rgba(0,0,0,.1);
+box-shadow:0 2px 10px rgba(0,0,0,.08);
 }
-</style>
 
+.card h3{
+color:#777;
+}
+
+.card p{
+font-size:28px;
+font-weight:bold;
+margin-top:10px;
+}
+
+.panel{
+background:white;
+padding:20px;
+border-radius:15px;
+box-shadow:0 2px 10px rgba(0,0,0,.08);
+margin-bottom:20px;
+}
+
+select,input{
+padding:10px;
+margin:5px;
+border:1px solid #ddd;
+border-radius:8px;
+}
+
+button{
+padding:10px 20px;
+border:none;
+border-radius:8px;
+background:#2563eb;
+color:white;
+cursor:pointer;
+}
+
+table{
+width:100%;
+margin-top:15px;
+border-collapse:collapse;
+}
+
+table th{
+background:#2563eb;
+color:white;
+padding:10px;
+}
+
+table td{
+padding:10px;
+border:1px solid #ddd;
+text-align:center;
+}
+
+canvas{
+max-height:300px;
+}
+
+</style>
 </head>
+
 <body>
 
-<div class="card">
-<h1>Dashboard Papelería</h1>
-<p>Sistema de control de ventas</p>
+<div class="sidebar">
 
-<h2>Servicios</h2>
+<h2>🖨️ Papelería</h2>
 
-<p>🖨️ Impresión B/N - $500</p>
-<p>🎨 Impresión Color - $1000</p>
-<p>📄 Fotocopias - $200</p>
-<p>📋 Fotocopia Documento - $300</p>
-<p>📠 Escáner - $500</p>
-<p>📑 Hoja de Vida - $6000</p>
-<p>⌨️ Transcripción - $3000</p>
+<ul>
+<li>📊 Dashboard</li>
+<li>💰 Ventas</li>
+<li>📈 Reportes</li>
+<li>⚙️ Configuración</li>
+</ul>
 
 </div>
+
+<div class="main">
+
+<div class="cards">
+
+<div class="card">
+<h3>Ventas Hoy</h3>
+<p id="ventas">$0</p>
+</div>
+
+<div class="card">
+<h3>Servicios</h3>
+<p id="servicios">0</p>
+</div>
+
+<div class="card">
+<h3>Ganancia</h3>
+<p id="ganancia">$0</p>
+</div>
+
+<div class="card">
+<h3>Movimientos</h3>
+<p id="movimientos">0</p>
+</div>
+
+</div>
+
+<div class="panel">
+
+<h2>Registrar Venta</h2>
+
+<br>
+
+<select id="servicio">
+
+<option value="500">Impresión B/N</option>
+<option value="1000">Impresión Color</option>
+<option value="200">Fotocopia</option>
+<option value="300">Fotocopia Documento</option>
+<option value="500">Escáner</option>
+<option value="6000">Hoja de Vida</option>
+<option value="3000">Transcripción</option>
+
+</select>
+
+<input type="number" id="cantidad" placeholder="Cantidad">
+
+<button onclick="guardarVenta()">
+Guardar
+</button>
+
+</div>
+
+<div class="panel">
+
+<h2>Ventas</h2>
+
+<table>
+
+<thead>
+<tr>
+<th>Servicio</th>
+<th>Cantidad</th>
+<th>Total</th>
+</tr>
+</thead>
+
+<tbody id="tabla">
+</tbody>
+
+</table>
+
+</div>
+
+<div class="panel">
+
+<h2>Gráfica de Ventas</h2>
+
+<canvas id="grafica"></canvas>
+
+</div>
+
+</div>
+
+<script>
+
+let totalVentas=0;
+let totalServicios=0;
+let movimientos=0;
+
+const ctx=document.getElementById('grafica');
+
+const chart=new Chart(ctx,{
+type:'bar',
+data:{
+labels:['Ventas'],
+datasets:[{
+label:'Ingresos',
+data:[0]
+}]
+}
+});
+
+function guardarVenta(){
+
+const servicio=document.getElementById('servicio');
+const nombre=servicio.options[servicio.selectedIndex].text;
+
+const precio=parseInt(servicio.value);
+
+const cantidad=parseInt(document.getElementById('cantidad').value);
+
+if(!cantidad){
+alert("Ingrese cantidad");
+return;
+}
+
+const total=precio*cantidad;
+
+totalVentas+=total;
+totalServicios+=cantidad;
+movimientos++;
+
+document.getElementById('ventas').innerHTML=
+"$"+totalVentas.toLocaleString();
+
+document.getElementById('ganancia').innerHTML=
+"$"+totalVentas.toLocaleString();
+
+document.getElementById('servicios').innerHTML=
+totalServicios;
+
+document.getElementById('movimientos').innerHTML=
+movimientos;
+
+document.getElementById('tabla').innerHTML+=`
+<tr>
+<td>${nombre}</td>
+<td>${cantidad}</td>
+<td>$${total.toLocaleString()}</td>
+</tr>
+`;
+
+chart.data.datasets[0].data=[totalVentas];
+chart.update();
+
+}
+
+</script>
 
 </body>
 </html>
