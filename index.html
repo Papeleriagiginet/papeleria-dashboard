@@ -321,9 +321,15 @@ totalServicios;
 
 document.getElementById('movimientos').innerHTML=
 movimientos;
+const ahora = new Date();
 
+const fecha = ahora.toLocaleDateString();
+
+const hora = ahora.toLocaleTimeString();
 document.getElementById('tabla').innerHTML+=`
 <tr>
+<td>${fecha}</td>
+<td>${hora}</td>
 <td>${nombre}</td>
 <td>${cantidad}</td>
 <td>$${total.toLocaleString()}</td>
