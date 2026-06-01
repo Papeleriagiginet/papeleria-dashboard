@@ -154,7 +154,16 @@ width:300px;
 ">
 
 <h2>🔐 Papelería Giginet</h2>
+<label style="display:block;margin-top:15px;">
+🎨 Color del sistema
+</label>
 
+<input
+type="color"
+id="colorSistema"
+value="#111827"
+style="width:100%;height:40px;border:none;"
+>
 <input
 type="text"
 id="usuario"
@@ -523,7 +532,33 @@ e.target.result
 lector.readAsDataURL(archivo);
 
 });
+const colorSistema =
+document.getElementById("colorSistema");
 
+if(localStorage.getItem("colorSistema")){
+
+const colorGuardado =
+localStorage.getItem("colorSistema");
+
+document.querySelector(".sidebar").style.background =
+colorGuardado;
+
+colorSistema.value =
+colorGuardado;
+
+}
+
+colorSistema.addEventListener("input", function(){
+
+document.querySelector(".sidebar").style.background =
+this.value;
+
+localStorage.setItem(
+"colorSistema",
+this.value
+);
+
+});
 
 </script>
 
