@@ -443,21 +443,6 @@ localStorage.setItem(
 document.getElementById("tabla").innerHTML
 );
 
-function eliminarFila(btn){
-
-if(!confirm("¿Eliminar esta venta?")){
-return;
-}
-
-let fila = btn.parentNode.parentNode;
-
-fila.remove();
-
-localStorage.setItem(
-"tablaVentas",
-document.getElementById("tabla").innerHTML
-);
-
 }
 
 function login(){
