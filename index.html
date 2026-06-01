@@ -327,6 +327,12 @@ document.getElementById('tabla').innerHTML+=`
 <td>${nombre}</td>
 <td>${cantidad}</td>
 <td>$${total.toLocaleString()}</td>
+<td>
+<button onclick="eliminarFila(this)">
+🗑️
+</button>
+</td>
+
 </tr>
 `;
 
@@ -359,7 +365,25 @@ localStorage.getItem("tablaVentas");
 }
 
 chart.data.datasets[0].data=[totalVentas];
+  
 chart.update();
+
+function eliminarFila(btn){
+if(!confirm("¿Eliminar esta venta?")){
+return;
+}
+
+let fila = btn.parentNode.parentNode;
+
+fila.remove();
+
+localStorage.setItem(
+"tablaVentas",
+document.getElementById("tabla").innerHTML
+);
+
+
+}
 </script>
 
 </body>
