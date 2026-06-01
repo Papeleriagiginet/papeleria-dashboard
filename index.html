@@ -306,7 +306,25 @@ localStorage.setItem(
 document.getElementById("tabla").innerHTML
 );
 }
+document.getElementById('ventas').innerHTML =
+"$"+totalVentas.toLocaleString();
 
+document.getElementById('ganancia').innerHTML =
+"$"+totalVentas.toLocaleString();
+
+document.getElementById('servicios').innerHTML =
+totalServicios;
+
+document.getElementById('movimientos').innerHTML =
+movimientos;
+
+if(localStorage.getItem("tablaVentas")){
+document.getElementById("tabla").innerHTML =
+localStorage.getItem("tablaVentas");
+}
+
+chart.data.datasets[0].data=[totalVentas];
+chart.update();
 </script>
 
 </body>
