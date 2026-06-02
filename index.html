@@ -631,7 +631,36 @@ lector.readAsDataURL(archivo);
 });
 const colorSistema =
 document.getElementById("colorSistema");
+const modoTema =
+document.getElementById("modoTema");
 
+if(localStorage.getItem("modoTema")){
+
+const modoGuardado =
+localStorage.getItem("modoTema");
+
+modoTema.value = modoGuardado;
+
+if(modoGuardado === "oscuro"){
+document.body.classList.add("oscuro");
+}
+
+}
+
+modoTema.addEventListener("change", function(){
+
+if(this.value === "oscuro"){
+document.body.classList.add("oscuro");
+}else{
+document.body.classList.remove("oscuro");
+}
+
+localStorage.setItem(
+"modoTema",
+this.value
+);
+
+});
 if(localStorage.getItem("colorSistema")){
 
 const colorGuardado =
