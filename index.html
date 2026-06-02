@@ -356,7 +356,23 @@ Ganancia neta:
 <canvas id="grafica"></canvas>
 
 </div>
+<div class="panel">
 
+<h2>📊 Historial de Cierres</h2>
+
+<table>
+<tr>
+<th>Fecha</th>
+<th>Ventas</th>
+<th>Ganancia</th>
+</tr>
+
+<tbody id="historialCierres">
+</tbody>
+
+</table>
+
+</div>
 </div>
 
 <script>
@@ -751,7 +767,20 @@ function nuevaJornada(){
 if(!confirm("¿Desea cerrar el día y comenzar una nueva jornada?")){
 return;
 }
+const fecha = new Date().toLocaleDateString();
 
+document.getElementById("historialCierres").innerHTML += `
+<tr>
+<td>${fecha}</td>
+<td>$${totalVentas.toLocaleString()}</td>
+<td>$${totalVentas.toLocaleString()}</td>
+</tr>
+`;
+
+localStorage.setItem(
+"historialCierres",
+document.getElementById("historialCierres").innerHTML
+);
 totalVentas = 0;
 totalServicios = 0;
 movimientos = 0;
