@@ -543,7 +543,12 @@ if(localStorage.getItem("tablaVentas")){
 document.getElementById("tabla").innerHTML =
 localStorage.getItem("tablaVentas");
 }
+if(localStorage.getItem("historialCierres")){
 
+document.getElementById("historialCierres").innerHTML =
+localStorage.getItem("historialCierres");
+
+}
 chart.data.datasets[0].data=[totalVentas];
   
 chart.update();
