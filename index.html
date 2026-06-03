@@ -543,7 +543,8 @@ document.getElementById('ventasCaja').innerHTML =
 document.getElementById('gananciaCaja').innerHTML =
 "$"+totalVentas.toLocaleString();
 
-
+gastosGuardados =
+parseInt(localStorage.getItem("gastosCaja")) || 0;
 chart.data.datasets[0].data=[totalVentas];
 chart.update();
 function guardarVenta(){
