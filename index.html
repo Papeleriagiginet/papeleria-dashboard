@@ -683,6 +683,21 @@ parseInt(localStorage.getItem("gastosCaja")) || 0;
 
 gastosActuales += valor;
 
+const fecha = new Date().toLocaleDateString();
+
+document.getElementById("tablaGastos").innerHTML += `
+<tr>
+<td>${fecha}</td>
+<td>${descripcion}</td>
+<td>$${valor.toLocaleString()}</td>
+</tr>
+`;
+
+localStorage.setItem(
+"tablaGastos",
+document.getElementById("tablaGastos").innerHTML
+);
+
 localStorage.setItem(
 "gastosCaja",
 gastosActuales
@@ -693,6 +708,9 @@ document.getElementById("gastosCaja").innerHTML =
 
 const gananciaNeta =
 totalVentas - gastosActuales;
+
+
+
 
 document.getElementById("gananciaCaja").innerHTML =
 "$" + gananciaNeta.toLocaleString();
