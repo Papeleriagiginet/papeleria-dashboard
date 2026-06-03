@@ -641,6 +641,46 @@ document.getElementById("tabla").innerHTML
 );
 
 }
+function guardarGasto(){
+
+const descripcion =
+document.getElementById("descripcionGasto").value;
+
+const valor =
+parseInt(document.getElementById("valorGasto").value);
+
+if(!descripcion || !valor){
+
+alert("Ingrese descripción y valor");
+return;
+
+}
+
+let gastosActuales =
+parseInt(localStorage.getItem("gastosCaja")) || 0;
+
+gastosActuales += valor;
+
+localStorage.setItem(
+"gastosCaja",
+gastosActuales
+);
+
+document.getElementById("gastosCaja").innerHTML =
+"$" + gastosActuales.toLocaleString();
+
+const gananciaNeta =
+totalVentas - gastosActuales;
+
+document.getElementById("gananciaCaja").innerHTML =
+"$" + gananciaNeta.toLocaleString();
+
+document.getElementById("descripcionGasto").value = "";
+document.getElementById("valorGasto").value = "";
+
+alert("Gasto registrado correctamente");
+
+}
 
 function login(){
 
