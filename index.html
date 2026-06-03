@@ -631,14 +631,25 @@ document.getElementById('ventasCaja').innerHTML =
 
 document.getElementById('gananciaCaja').innerHTML =
 "$"+totalVentas.toLocaleString();
+const gastosGuardados =
+parseInt(localStorage.getItem("gastosCaja")) || 0;
 
-document.getElementById('gastosCaja').innerHTML =
-"$0";
+document.getElementById("gastosCaja").innerHTML =
+"$" + gastosGuardados.toLocaleString();
+
+document.getElementById("gananciaCaja").innerHTML =
+"$" + (totalVentas - gastosGuardados).toLocaleString();
 if(localStorage.getItem("tablaVentas")){
 document.getElementById("tabla").innerHTML =
 localStorage.getItem("tablaVentas");
 }
-if(localStorage.getItem("historialCierres")){
+if(localStorage.getItem("tablaGastos")){
+
+document.getElementById("tablaGastos").innerHTML =
+localStorage.getItem("tablaGastos");
+
+}
+  if(localStorage.getItem("historialCierres")){
 
 document.getElementById("historialCierres").innerHTML =
 localStorage.getItem("historialCierres");
