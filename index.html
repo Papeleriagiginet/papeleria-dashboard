@@ -681,8 +681,7 @@ document.getElementById('ventasCaja').innerHTML =
 
 document.getElementById('gananciaCaja').innerHTML =
 "$"+totalVentas.toLocaleString();
-const gastosGuardados =
-parseInt(localStorage.getItem("gastosCaja")) || 0;
+
 
 document.getElementById("gastosCaja").innerHTML =
 "$" + gastosGuardados.toLocaleString();
