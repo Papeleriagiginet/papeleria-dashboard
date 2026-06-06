@@ -709,18 +709,55 @@ chart.data.datasets[0].data=[totalVentas];
 chart.update();
 
 function eliminarFila(btn){
-if(!confirm("¿Eliminar esta venta?")){
-return;
-}
 
-let fila = btn.parentNode.parentNode;
+    if(!confirm("¿Eliminar esta venta?")){
+        return;
+    }
 
-fila.remove();
+    let fila = btn.parentNode.parentNode;
 
-localStorage.setItem(
-"tablaVentas",
-document.getElementById("tabla").innerHTML
-);
+    let cantidad = parseInt(fila.cells[3].innerText);
+    let total = parseInt(
+        fila.cells[4].innerText
+        .replace("$","")
+        .replace(/\./g,"")
+    );
+
+    totalVentas -= total;
+    totalServicios -= cantidad;
+    movimientos--;
+
+    document.getElementById("ventas").innerHTML =
+    "$" + totalVentas.toLocaleString();
+
+    document.getElementById("ganancia").innerHTML =
+    "$" + totalVentas.toLocaleString();
+
+    document.getElementById("servicios").innerHTML =
+    totalServicios;
+
+    document.getElementById("movimientos").innerHTML =
+    movimientos;
+
+    document.getElementById("ventasCaja").innerHTML =
+    "$" + totalVentas.toLocaleString();
+
+    let gastosGuardados =
+    parseInt(localStorage.getItem("gastosCaja")) || 0;
+
+    document.getElementById("gananciaCaja").innerHTML =
+    "$" + (totalVentas - gastosGuardados).toLocaleString();
+
+    fila.remove();
+
+    localStorage.setItem(
+        "tablaVentas",
+        document.getElementById("tabla").innerHTML
+    );
+
+    localStorage.setItem("totalVentas", totalVentas);
+    localStorage.setItem("totalServicios", totalServicios);
+    localStorage.setItem("movimientos", movimientos);
 
 }
 function guardarGasto(){
